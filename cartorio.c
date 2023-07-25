@@ -5,6 +5,8 @@
 
 int registro()
 {
+	setlocale(LC_ALL, "Portuguese"); // definindo o idioma
+	
 	// inicio criação das variáveis/strings
 	char arquivo[40];
 	char cpf[40];
@@ -27,16 +29,18 @@ int registro()
 	fprintf(file,","); // escreve "," no arquivo
 	fclose(file); // fecha o arquivo
 	
-	printf("Digite o nome a ser cadastrado: "); 
-	scanf("%s",nome); // coletando informação do usuário e armazenando em uma string
+	printf("Digite o nome a ser cadastrado: "); //coletando nome do usuário, do jeito q foi feito, serve para nomes compostos.
+	getchar();
+	fgets(nome, sizeof(nome), stdin);
+	nome[strcspn(nome, "\n")] = '\0';
 	
-	file = fopen(arquivo, "a"); // abre o arquivo
-	fprintf(file,nome); // escreve a string "nome" no arquivo
-	fclose(file); // fecha o arquivo
+	file = fopen(arquivo, "a"); 
+	fprintf(file,nome); // escreve o nome armazenado na string "nome"
+	fclose(file);
 	
-	file = fopen(arquivo, "a"); //abre o arquivo
-	fprintf(file,","); // escreve "," no arquivo
-	fclose(file); // fecha o arquivo
+	file = fopen(arquivo,"a");
+	fprintf(file,","); // escreve "," no arquivo, serve para separar as informaçoes pedidas no cadastro
+	fclose(file);
 	
 	printf("Digite o sobrenome a ser cadastrado: ");
 	scanf("%s",sobrenome);
@@ -85,41 +89,59 @@ int consulta()
 		printf("%s", conteudo);
 		printf("\n\n");
 	}
+	fclose(file); //fecha o arquivo
 	
 	system("pause"); // fim da consulta
 
 }
 int deletar()
 {
-	char cpf[40]; // criação da variável/string
+	setlocale(LC_ALL, "Portuguese"); // definindo o idioma
 	
-	printf("Digite o CPF do usuário a ser deletado: "); // inicio da deleção de cadastro
-	scanf("%s", cpf); //coletando informação do usuário e armazenando em uma string
+	char cpf[40]; // definindo variáveis
 	
-	remove( cpf); // remove o arquivo contendo a informação armazenada na string.
+	printf("Digite o CPF do usuário a ser deletado: "); // coletando o cpf a ser deletado
+	scanf("%s",cpf);
+		
+		
 	
-	FILE *file;
-	file = fopen( cpf,"r");
+	FILE *file;	
+	file = fopen(cpf,"r"); // abre o arquivo para procurar pelo cpf
 	
-	if(file == NULL) // condição se a string não for encontrada
+	if(file == NULL) // condição caso o cpf não for encontrado
 	{
-		printf("O usuário não foi encontrado no sistema! \n");	
+		printf("O usuário não se encontra no sistema!.\n");
+		system("pause");
 	}
+	else // condição se o cpf for encontrado
+	{
+		fclose(file); // fecha o arquivo para que ele possa ser deletado
+		remove(cpf); // deleta o arquivo
+		FILE *file;	
+		file = fopen(cpf,"r");
+		if(file == NULL) //confirmação da deleção do cadastro. 
+		{
+			printf("Usuário deletado com sucesso!.\n");
+			system("pause");
+		}
+	}
+	fclose(file); // fechando o arquivo depois de usar.
 	
-	system("pause"); // fim da deleção de cadastros
 	
 }
 
 int main()
 {
+	setlocale(LC_ALL, "Portuguese"); // definindo o idioma
+	
 	int opcao=0; //definindo as variáveis
 	int laco=1;
 	char senhadigitada[10]="a";
-	int comparacao;
+	int comparacao; // fim das variáveis
 	
-	printf("### Cartório da EBAC ###\n\n");
+	printf("### Cartório da EBAC ###\n\n"); // inicio da tela de login
 	printf("Login de administrador!\n\nDigite a sua senha: ");
-	scanf("%s",senhadigitada);
+	scanf("%s",senhadigitada); // fim da tela de login
 	
 	comparacao = strcmp(senhadigitada, "admin"); // compara se a senha digitada é igual ao que está armazenada
 	
@@ -130,8 +152,6 @@ int main()
 		{
 	
 			system("cls"); // limpa a tela
-		
-			setlocale(LC_ALL, "Portuguese"); // definindo o idioma
 		
 			printf("### Cartório da EBAC ###\n\n"); // inicio do menu
 			printf("Escolha a opção desejada do menu:\n\n");
@@ -175,6 +195,6 @@ int main()
 	}
 	
 	else // condição se a senha for incorreta
-		printf("Senha incorreta!");
+		printf("Senha incorreta!\n\nAbra o programa novamente e tente outra vez.\nO programa será encerrado.");
 		
 }
