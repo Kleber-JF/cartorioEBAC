@@ -110,60 +110,71 @@ int deletar()
 	
 }
 
-
-
 int main()
-	{
+{
 	int opcao=0; //definindo as variáveis
 	int laco=1;
+	char senhadigitada[10]="a";
+	int comparacao;
 	
-	for(laco=1;laco=1;)
-	// determinando loop de execução do programa (quantas vezes o programa vai rodar, nesse caso, indefinidamente)
+	printf("### Cartório da EBAC ###\n\n");
+	printf("Login de administrador!\n\nDigite a sua senha: ");
+	scanf("%s",senhadigitada);
+	
+	comparacao = strcmp(senhadigitada, "admin"); // compara se a senha digitada é igual ao que está armazenada
+	
+	if(comparacao == 0) //condição se a senha for correta
 	{
-	
-		system("cls"); // limpa a tela
-		
-		setlocale(LC_ALL, "Portuguese"); // definindo o idioma
-		
-		printf("### Cartório da EBAC ###\n\n"); // inicio do menu
-		printf("Escolha a opção desejada do menu:\n\n");
-		printf("\t1 - Resgistrar nomes\n");
-		printf("\t2 - Consultar nomes\n");
-		printf("\t3 - Deletar nomes\n");
-		printf("\t4 - Sair do sistema\n\n");
-		printf("Digite o número da opção desejada e aperte ENTER: "); // final do menu
-		
-		scanf("%d" , &opcao); // armazenando a escolha do usuário
-		
-		system("cls"); // limpa a tela
-		
-		
-		switch(opcao) //inicio da seleção
+			
+		for(laco=1;laco=1;)// determinando loop de execução do programa (quantas vezes o programa vai rodar, nesse caso, indefinidamente)
 		{
-			case 1: // caso o usuário digite 1
-			registro(); // roda a função registro
-			break; // pausa 1 vez o programa
-			
-			case 2: // caso o usuário digite 2
-			consulta();// roda a função consulta
-			break; // pausa 1 vez o programa
-			
-			case 3: // caso o usuário digite 3
-			deletar();// roda a função deletar
-			break; // pausa 1 vez o programa
-			
-			case 4: // caso o usuário digite 4
-			printf("Obrigado por utilizar nosso sistema!\n");
-			return 0;// fecha o programa
-			break; // pausa 1 vez o programa
-			
-			default: // caso o usuário digite qualquer outro caracter
-			printf("Essa opção não está disponível!\n\n");
-			system("pause");// pausa 1 vez o programa
-			break; //final da seleção
-				
-		}
-		
 	
-}
+			system("cls"); // limpa a tela
+		
+			setlocale(LC_ALL, "Portuguese"); // definindo o idioma
+		
+			printf("### Cartório da EBAC ###\n\n"); // inicio do menu
+			printf("Escolha a opção desejada do menu:\n\n");
+			printf("\t1 - Resgistrar nomes\n");
+			printf("\t2 - Consultar nomes\n");
+			printf("\t3 - Deletar nomes\n");
+			printf("\t4 - Sair do sistema\n\n");
+			printf("Digite o número da opção desejada e aperte ENTER: "); // final do menu
+		
+			scanf("%d" , &opcao); // armazenando a escolha do usuário
+		
+			system("cls"); // limpa a tela
+		
+		
+			switch(opcao) //inicio da seleção
+			{
+				case 1: // caso o usuário digite 1
+				registro(); // roda a função registro
+				break; // pausa 1 vez o programa
+			
+				case 2: // caso o usuário digite 2
+				consulta();// roda a função consulta
+				break; // pausa 1 vez o programa
+			
+				case 3: // caso o usuário digite 3
+				deletar();// roda a função deletar
+				break; // pausa 1 vez o programa
+			
+				case 4: // caso o usuário digite 4
+				printf("Obrigado por utilizar nosso sistema!\n");
+				return 0;// fecha o programa
+				break; // pausa 1 vez o programa
+			
+				default: // caso o usuário digite qualquer outro caracter
+				printf("Essa opção não está disponível!\n\n");
+				system("pause");// pausa 1 vez o programa
+				break; //final da seleção
+				
+			}		
+		}
+	}
+	
+	else // condição se a senha for incorreta
+		printf("Senha incorreta!");
+		
 }
